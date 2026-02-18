@@ -193,12 +193,12 @@ Evaluated at thresholds **0.25 / 0.5 / 0.75**
 ## 🚀 Quick Start
 
 ### 1️⃣ Install dependencies
-```bash
+```
 pip install -r requirements.txt
 ```
 
 ### 2️⃣ Download dataset
-```python
+```
 Pythonfrom datasets import load_dataset
 dataset = load_dataset("popoff4rtem/2D-Neutron-Diffraction-Dataset-for-Discriminative-Models")
 ```
@@ -219,7 +219,7 @@ It does not hallucinate physical features and can be safely applied in experimen
 
 ### 📖 Citation
 If you use this code in your research, please cite the corresponding article:
-```bibtext
+```
 bibtex@article{Popoff2025SwinWNet,
   title   = {SwinWNet: A Deep Learning Framework for Multimodal Processing of 2D Neutron Diffraction Data},
   author  = {Popoff, Artem},
