@@ -199,7 +199,7 @@ pip install -r requirements.txt
 
 ### 2️⃣ Download dataset
 ```
-Pythonfrom datasets import load_dataset
+from datasets import load_dataset
 dataset = load_dataset("popoff4rtem/2D-Neutron-Diffraction-Dataset-for-Discriminative-Models")
 ```
 
