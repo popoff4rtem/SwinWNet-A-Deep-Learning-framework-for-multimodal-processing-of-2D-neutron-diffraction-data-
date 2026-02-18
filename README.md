@@ -221,9 +221,9 @@ It does not hallucinate physical features and can be safely applied in experimen
 If you use this code in your research, please cite the corresponding article:
 ```
 bibtex@article{Popoff2025SwinWNet,
-  title   = {SwinWNet: A Deep Learning Framework for Multimodal Processing of 2D Neutron Diffraction Data},
-  author  = {Popoff, Artem},
-  journal = {TBD},
+  title   = {SwinWnet: a multimodal dual-branch Swin Transformer framework for 2D neutron diffraction postprocessing},
+  authors  = {Popov A.I., Novoselov I.E., Antropov N.O., Smirnov A.A., Kravtsov E.A., Ogorodnikov I.N.},
+  journal = {PRX Intelligence},
   year    = {2025}
 }
 ```
