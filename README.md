@@ -13,9 +13,9 @@ The framework is specifically designed for **physically safe processing** of dif
 - peak shapes,
 - and overall diffraction physics.
 
-![2D Diffractions Postpocessing samples](Diffraction%20framework%20PRX%20Intellegence/Inference%202d.png)
+![2D Diffractions Postpocessing samples](Diffraction%20framework%20PRX%20Intellegence/Inference_2d.png)
 
-![Postpocessing samples in the space of interplanar distances I(d)](Diffraction%20framework%20PRX%20Intellegence/Inference%201d.png)
+![Postpocessing samples in the space of interplanar distances I(d)](Diffraction%20framework%20PRX%20Intellegence/Inference_1d.png)
 
 In addition to standard image-based metrics, the framework provides **physics-aware evaluation tools** operating directly in *d-space*.
 
