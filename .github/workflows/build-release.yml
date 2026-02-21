@@ -18,15 +18,15 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      - name: Checkout (sparse)
-        uses: actions/checkout@v4
-        with:
-          path: s
-          fetch-depth: 1
-          sparse-checkout: |
-            DiffractionLabeler/diffraction_labeling_gui
-            .github/workflows/build-release.yml
-          sparse-checkout-cone-mode: false
+      - name: Manual sparse clone
+        shell: bash
+        run: |
+          git init repo
+          cd repo
+          git remote add origin https://github.com/${{ github.repository }}.git
+          git config core.sparseCheckout true
+          echo "DiffractionLabeler/diffraction_labeling_gui/*" >> .git/info/sparse-checkout
+          git pull origin ${{ github.ref_name || 'main' }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -34,13 +34,13 @@ jobs:
           python-version: "3.11"
 
       - name: Install deps
-        working-directory: s/DiffractionLabeler/diffraction_labeling_gui
+        working-directory: repo/DiffractionLabeler/diffraction_labeling_gui
         run: |
           python -m pip install --upgrade pip
           pip install numpy matplotlib pyside6 pyinstaller
 
-      - name: Build (onedir)
-        working-directory: s/DiffractionLabeler/diffraction_labeling_gui
+      - name: Build
+        working-directory: repo/DiffractionLabeler/diffraction_labeling_gui
         run: >
           pyinstaller diff_labeling_gui.py
           --noconfirm --clean --onedir --windowed
@@ -50,21 +50,16 @@ jobs:
           --hidden-import=PySide6.QtGui
           --hidden-import=PySide6.QtWidgets
 
-      - name: Pack zip (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
-        working-directory: s/DiffractionLabeler/diffraction_labeling_gui
+      - name: Zip
+        working-directory: repo/DiffractionLabeler/diffraction_labeling_gui
         run: |
-          Compress-Archive -Path dist/DiffractionLabeler -DestinationPath ("DiffractionLabeler_" + "${{ runner.os }}" + "_" + "${{ github.ref_name }}" + ".zip")
+          if [ "${{ runner.os }}" = "Windows" ]; then
+            powershell Compress-Archive dist/DiffractionLabeler DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip
+          else
+            zip -r DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip dist/DiffractionLabeler
+          fi
 
-      - name: Pack zip (Linux/macOS)
-        if: runner.os != 'Windows'
-        shell: bash
-        working-directory: s/DiffractionLabeler/diffraction_labeling_gui
-        run: |
-          zip -r "DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip" dist/DiffractionLabeler
-
-      - name: Upload to Release
+      - name: Upload
         uses: softprops/action-gh-release@v2
         with:
-          files: s/DiffractionLabeler/diffraction_labeling_gui/DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip
+          files: repo/DiffractionLabeler/diffraction_labeling_gui/DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip
