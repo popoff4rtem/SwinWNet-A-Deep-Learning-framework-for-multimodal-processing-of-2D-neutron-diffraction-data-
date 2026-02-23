@@ -1,0 +1,70 @@
+name: Build & Release DiffractionLabeler
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Enable long paths (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          git config --global core.longpaths true
+
+      - name: Checkout (sparse, short path)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          path: r
+          sparse-checkout: |
+            DiffractionLabeler/
+            .github/
+          sparse-checkout-cone-mode: false
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        working-directory: r
+        run: |
+          python -m pip install --upgrade pip
+          pip install numpy matplotlib pyside6 pyinstaller
+
+      - name: Build (onedir)
+        working-directory: r
+        run: |
+          pyinstaller DiffractionLabeler/diffraction_labeling_gui/diff_labeling_gui.py --noconfirm --clean --onedir --windowed --name DiffractionLabeler --hidden-import=matplotlib.backends.backend_qtagg --hidden-import=PySide6.QtCore --hidden-import=PySide6.QtGui --hidden-import=PySide6.QtWidgets
+
+      - name: Pack zip (Windows)
+        if: runner.os == 'Windows'
+        working-directory: r
+        shell: pwsh
+        run: |
+          Compress-Archive -Path dist/DiffractionLabeler -DestinationPath DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip
+
+      - name: Pack zip (Linux/macOS)
+        if: runner.os != 'Windows'
+        working-directory: r
+        shell: bash
+        run: |
+          zip -r "DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip" dist/DiffractionLabeler
+
+      - name: Upload to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: r/DiffractionLabeler_${{ runner.os }}_${{ github.ref_name }}.zip
