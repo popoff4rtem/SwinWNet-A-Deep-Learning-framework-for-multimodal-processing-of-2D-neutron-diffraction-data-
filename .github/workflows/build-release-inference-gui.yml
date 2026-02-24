@@ -60,7 +60,16 @@ jobs:
       - name: Build (onedir)
         working-directory: r
         run: |
-          pyinstaller inference_gui/swinwnet_viewer_gui.py --noconfirm --clean --onedir --windowed --name InferenceGUI --hidden-import=matplotlib.backends.backend_qtagg --hidden-import=PySide6.QtCore --hidden-import=PySide6.QtGui --hidden-import=PySide6.QtWidgets
+          pyinstaller inference_gui/swinwnet_viewer_gui.py \
+            --noconfirm --clean --onedir --windowed \
+            --name InferenceGUI \
+            --hidden-import=matplotlib.backends.backend_qtagg \
+            --hidden-import=PySide6.QtCore \
+            --hidden-import=PySide6.QtGui \
+            --hidden-import=PySide6.QtWidgets \
+            --hidden-import=SwinWNet \
+            --hidden-import=ST_Inference_Pipline \
+            --collect-all torch
 
       - name: Pack zip (Windows)
         if: runner.os == 'Windows'
