@@ -61,6 +61,8 @@ jobs:
         working-directory: r
         shell: bash
         run: |
+          if [[ "${{ runner.os }}" == "Windows" ]]; then SEP=";"; else SEP=":"; fi
+
           pyinstaller inference_gui/swinwnet_viewer_gui.py \
             --noconfirm --clean --onedir --windowed \
             --name InferenceGUI \
@@ -68,9 +70,10 @@ jobs:
             --hidden-import=PySide6.QtCore \
             --hidden-import=PySide6.QtGui \
             --hidden-import=PySide6.QtWidgets \
-            --hidden-import=SwinWNet \
-            --hidden-import=ST_Inference_Pipline \
-            --collect-all torch
+            --add-data "SwinWNet.py${SEP}." \
+            --add-data "ST_Inference_Pipline.py${SEP}." \
+            --add-data "SwinWNet${SEP}SwinWNet" \
+            --collect-submodules torch
 
       - name: Pack zip (Windows)
         if: runner.os == 'Windows'
