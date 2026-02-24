@@ -33,7 +33,6 @@ jobs:
             inference_gui/
             SwinWNet.py
             ST_Inference_Pipline.py
-            SwinWNet/
             .github/
           sparse-checkout-cone-mode: false
 
@@ -70,9 +69,10 @@ jobs:
             --hidden-import=PySide6.QtCore \
             --hidden-import=PySide6.QtGui \
             --hidden-import=PySide6.QtWidgets \
+            --hidden-import=SwinWNet \
+            --hidden-import=ST_Inference_Pipline \
             --add-data "SwinWNet.py${SEP}." \
             --add-data "ST_Inference_Pipline.py${SEP}." \
-            --add-data "SwinWNet${SEP}SwinWNet" \
             --collect-submodules torch
 
       - name: Pack zip (Windows)
