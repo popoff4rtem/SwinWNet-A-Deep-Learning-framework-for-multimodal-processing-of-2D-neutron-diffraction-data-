@@ -59,6 +59,7 @@ jobs:
 
       - name: Build (onedir)
         working-directory: r
+        shell: bash
         run: |
           pyinstaller inference_gui/swinwnet_viewer_gui.py \
             --noconfirm --clean --onedir --windowed \
