@@ -202,6 +202,16 @@ Evaluated at thresholds **0.25 / 0.5 / 0.75**
 
 ## 🖥️ GUI Applications
 
+**📥 Download ready-to-use executables**  
+Pre-built versions are available in the [**Releases**](https://github.com/popoff4rtem/.../releases) tab of this repository.
+
+**Supported platforms:**
+- **Windows**
+- **Linux**
+- **macOS 15+** (native Apple Silicon support)
+
+---
+
 This framework includes **two user-friendly graphical applications** that make working with 2D neutron diffraction data much easier and more intuitive.
 
 ### 🎯 DiffractionLabeler — Diffraction Pattern Labeling
