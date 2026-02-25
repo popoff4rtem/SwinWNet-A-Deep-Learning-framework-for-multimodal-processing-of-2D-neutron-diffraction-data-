@@ -1,2 +1,4 @@
 datasets/dataset.pkl
-Infrernce GUI/swinwnet_viewer_gui.py
+.idea/
+__pycache__/
+*.pyc
