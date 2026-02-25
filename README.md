@@ -203,7 +203,7 @@ Evaluated at thresholds **0.25 / 0.5 / 0.75**
 ## 🖥️ GUI Applications
 
 **📥 Download ready-to-use executables**  
-Pre-built versions are available in the [**Releases**](https://github.com/popoff4rtem/.../releases) tab of this repository.
+Pre-built versions are available in the [**Releases**](https://github.com/popoff4rtem/SwinWNet-A-Deep-Learning-framework-for-multimodal-processing-of-2D-neutron-diffraction-data/releases) tab of this repository.
 
 **Supported platforms:**
 - **Windows**
