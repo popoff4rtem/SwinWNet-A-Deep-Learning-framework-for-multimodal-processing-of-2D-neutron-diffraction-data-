@@ -200,6 +200,60 @@ Evaluated at thresholds **0.25 / 0.5 / 0.75**
 
 ---
 
+## 🖥️ GUI Applications
+
+This framework includes **two user-friendly graphical applications** that make working with 2D neutron diffraction data much easier and more intuitive.
+
+### 🎯 DiffractionLabeler — Diffraction Pattern Labeling
+
+An intuitive application for fast and accurate peak labeling on 2D diffraction images.
+
+**How it works:**
+- You select peaks on the 1D intensity profiles **I(d)** (interplanar spacing space).
+- A special algorithm automatically projects the selected peaks back onto the 2D diffraction pattern.
+- Result — clean **binary masks**.
+
+**Features:**
+- Load diffraction patterns in `.npy` format
+- Full control over convolution parameters: scattering angle range, wavelengths, and d-scale discretization step
+- Real-time mask preview and editing. To select a specific item, simply right-click and drag it to select it. You can deselect it by left-clicking.
+
+**For quick testing** use the file:  
+`datasets/diffractions.npy`
+
+---
+
+### 🤖 InferenceGUI — Model Inference & Visualization
+
+A powerful application for running the **SwinWNet** model and exploring every stage of post-processing in detail.
+
+**What you see after inference:**
+- All internal processing stages (top panel)
+- For each stage — the corresponding **I(d)** convolution with its error matrix
+- Click the legend to hide/show individual convolutions
+- Click a stage again to collapse its visualization
+
+**Features:**
+- Load diffraction patterns in `.npy` format
+- Full control over diffraction and convolution parameters (same as in DiffractionLabeler)
+- Automatic error matrix calculation
+- Logarithmic viewing mode
+- Pattern normalization
+- Save results
+
+**Example files for testing:**
+`datasets/Al2O3_sapphire_diffraction.npy`
+`datasets/C_graphite_diffraction.npy`
+`datasets/Na2Ca3Al2F14_diffraction.npy`
+`datasets/Rb_diffraction.npy`
+`datasets/Si_diffraction.npy`
+`datasets/UO2_diffraction.npy`
+
+**Recommended model weights:**  
+`models/SwinWNet_diffraction+error_matrix.pth`
+
+---
+
 ## 🚀 Quick Start
 
 ### 1️⃣ Install dependencies
